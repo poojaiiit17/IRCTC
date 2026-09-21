@@ -1,33 +1,15 @@
-const API = "http://localhost:8080/api";
-
-async function searchTrains() {
-    const source = document.getElementById("source").value.trim();
-    const destination = document.getElementById("destination").value.trim();
-
-    const response = await fetch(
-        API + "/trains/search?source=" + encodeURIComponent(source) +
-        "&destination=" + encodeURIComponent(destination)
-    );
-
-    const trains = await response.json();
-    const results = document.getElementById("results");
-
-    if (trains.length === 0) {
-        results.innerHTML = "<p>No trains found.</p>";
-        return;
-    }
-
-    results.innerHTML = trains.map(train => `
-        <div class="train-card">
-            <h3>${train.trainNumber} - ${train.trainName}</h3>
-            <p>${train.source} → ${train.destination}</p>
-            <p>Available Seats: ${train.availableSeats}</p>
-            <button onclick="bookTrain(${train.trainId})">Book</button>
-        </div>
-    `).join("");
+const API="http://localhost:8080/api";
+async function loadStations(){
+ const stations=await fetch(API+"/stations").then(r=>r.json());
+ for(const id of ["source","destination"]){
+  document.getElementById(id).innerHTML='<option value="">Select station</option>'+stations.map(s=>`<option value="${s.stationName}">${s.stationName} (${s.stationCode})</option>`).join("");
+ }
 }
-
-function bookTrain(trainId) {
-    localStorage.setItem("selectedTrainId", trainId);
-    window.location.href = "booking.html";
+async function searchTrains(){
+ const source=document.getElementById("source").value,destination=document.getElementById("destination").value,date=document.getElementById("journeyDate").value;
+ if(!source||!destination||!date){alert("Please select source, destination and journey date.");return;}
+ const trains=await fetch(API+"/trains/search?source="+encodeURIComponent(source)+"&destination="+encodeURIComponent(destination)+"&date="+date).then(r=>r.json());
+ document.getElementById("results").innerHTML=trains.length?trains.map(t=>`<div class="train-card"><h3>${t.trainNumber} - ${t.trainName}</h3><p>${t.source} → ${t.destination}</p><p>Available: ${t.availableSeats}</p><button onclick="bookTrain(${t.trainId},'${date}')">Select Train</button></div>`).join(""):"<div class='empty'>No trains found.</div>";
 }
+function bookTrain(id,date){localStorage.setItem("selectedTrainId",id);localStorage.setItem("journeyDate",date);location.href="booking.html";}
+loadStations();
