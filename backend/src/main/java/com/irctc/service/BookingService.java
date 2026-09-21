@@ -4,6 +4,8 @@ import com.irctc.model.Booking;
 import com.irctc.model.Train;
 import com.irctc.repository.BookingRepository;
 import com.irctc.repository.TrainRepository;
+import com.irctc.repository.PassengerRepository;
+import com.irctc.model.Passenger;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
@@ -12,10 +14,12 @@ import java.util.UUID;
 public class BookingService {
     private final BookingRepository bookingRepository;
     private final TrainRepository trainRepository;
+    private final PassengerRepository passengerRepository;
 
-    public BookingService(BookingRepository bookingRepository, TrainRepository trainRepository) {
+    public BookingService(BookingRepository bookingRepository, TrainRepository trainRepository, PassengerRepository passengerRepository) {
         this.bookingRepository = bookingRepository;
         this.trainRepository = trainRepository;
+        this.passengerRepository = passengerRepository;
     }
 
     public Booking book(Booking booking) {
@@ -32,7 +36,9 @@ public class BookingService {
         booking.setBookingStatus("CONFIRMED");
         booking.setPnr("PNR" + UUID.randomUUID().toString().replace("-", "").substring(0, 8).toUpperCase());
 
-        return bookingRepository.save(booking);
+        Booking saved = bookingRepository.save(booking);
+        passengerRepository.save(new Passenger(saved.getBookingId(), saved.getPassengerName(), saved.getPassengerAge(), saved.getPassengerGender(), "AUTO", "S1"));
+        return saved;
     }
 
     public List<Booking> getUserBookings(Long userId) {
