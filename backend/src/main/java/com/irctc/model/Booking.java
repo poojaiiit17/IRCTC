@@ -2,6 +2,7 @@ package com.irctc.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "bookings")
@@ -19,6 +20,9 @@ public class Booking {
     private double amount;
     private String bookingStatus = "CONFIRMED";
     private String pnr;
+    private String classType;
+    @Transient
+    private List<Passenger> passengers;
 
     public Booking() {}
 
@@ -40,5 +44,9 @@ public class Booking {
     public String getBookingStatus() { return bookingStatus; }
     public void setBookingStatus(String bookingStatus) { this.bookingStatus = bookingStatus; }
     public String getPnr() { return pnr; }
+    public String getClassType() { return classType; }
+    public void setClassType(String classType) { this.classType = classType; }
+    public List<Passenger> getPassengers() { return passengers; }
+    public void setPassengers(List<Passenger> passengers) { this.passengers = passengers; }
     public void setPnr(String pnr) { this.pnr = pnr; }
 }
