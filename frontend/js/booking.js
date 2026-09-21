@@ -1,36 +1,17 @@
-const API = "http://localhost:8080/api";
-
-async function bookTicket() {
-    const user = JSON.parse(localStorage.getItem("user"));
-    const trainId = localStorage.getItem("selectedTrainId");
-
-    if (!user || !trainId) {
-        alert("Please login and select a train first.");
-        window.location.href = "login.html";
-        return;
-    }
-
-    const response = await fetch(API + "/bookings", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({
-            userId: user.userId,
-            trainId: Number(trainId),
-            passengerName: document.getElementById("passengerName").value,
-            passengerAge: Number(document.getElementById("passengerAge").value),
-            passengerGender: document.getElementById("passengerGender").value,
-            journeyDate: document.getElementById("journeyDate").value,
-            amount: Number(document.getElementById("amount").value)
-        })
-    });
-
-    const data = await response.json();
-
-    if (response.ok) {
-        document.getElementById("message").innerText =
-            "Booking successful. PNR: " + data.pnr;
-    } else {
-        document.getElementById("message").innerText =
-            data.message || "Booking failed";
-    }
+const API="http://localhost:8080/api";
+let count=0;
+function addPassenger(){
+ count++;
+ document.getElementById("passengers").insertAdjacentHTML("beforeend",`<div class="panel passenger"><h4>Passenger ${count}</h4><input class="pname" placeholder="Full Name"><input class="page" type="number" placeholder="Age"><select class="pgender"><option>Male</option><option>Female</option><option>Other</option></select></div>`);
 }
+async function createBooking(){
+ const user=JSON.parse(localStorage.getItem("user")),trainId=localStorage.getItem("selectedTrainId");
+ if(!user||!trainId){location.href="login.html";return;}
+ const passengers=[...document.querySelectorAll(".passenger")].map((p,i)=>({name:p.querySelector(".pname").value,age:Number(p.querySelector(".page").value),gender:p.querySelector(".pgender").value}));
+ if(!passengers.length||passengers.some(p=>!p.name||!p.age)){alert("Enter passenger details.");return;}
+ const body={userId:user.userId,trainId:Number(trainId),journeyDate:localStorage.getItem("journeyDate"),classType:document.getElementById("classType").value,passengers};
+ const r=await fetch(API+"/bookings",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
+ const data=await r.json();
+ if(r.ok){localStorage.setItem("pendingBooking",JSON.stringify(data));location.href="payment.html";}else document.getElementById("message").innerText=data.message||"Booking failed";
+}
+addPassenger();
