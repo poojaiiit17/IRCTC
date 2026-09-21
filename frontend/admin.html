@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Admin Dashboard</title><link rel="stylesheet" href="css/style.css"></head>
+<body>
+<header><h1>IRCTC Admin</h1><nav><a href="index.html">Home</a></nav></header>
+<main class="page">
+<h2>Admin Dashboard</h2><div class="stats" id="stats"></div>
+<section class="panel"><h3>Add Train</h3>
+<input id="trainNumber" placeholder="Train Number"><input id="trainName" placeholder="Train Name">
+<input id="source" placeholder="Source"><input id="destination" placeholder="Destination">
+<input id="totalSeats" type="number" placeholder="Total Seats"><button onclick="addTrain()">Add Train</button></section>
+<section class="panel"><h3>Manage Trains</h3><div id="trains"></div></section>
+<section class="panel"><h3>Manage Stations</h3>
+<input id="stationCode" placeholder="Station Code"><input id="stationName" placeholder="Station Name">
+<input id="city" placeholder="City"><input id="state" placeholder="State"><button onclick="addStation()">Add Station</button>
+<div id="stations"></div></section>
+<section class="panel"><h3>All Bookings</h3><div id="bookings"></div></section>
+</main><script src="js/admin.js"></script></body></html>
