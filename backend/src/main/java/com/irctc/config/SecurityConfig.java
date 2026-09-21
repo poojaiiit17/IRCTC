@@ -31,8 +31,4 @@ public class SecurityConfig {
         return http.build();
     }
 
-    @Bean
-    AdminUserDetailsService adminUserDetailsService() {
-        return new AdminUserDetailsService();
-    }
 }
