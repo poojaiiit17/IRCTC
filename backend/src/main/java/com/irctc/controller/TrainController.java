@@ -4,6 +4,8 @@ import com.irctc.model.Train;
 import com.irctc.service.TrainService;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import org.springframework.format.annotation.DateTimeFormat;
+import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/api/trains")
@@ -22,7 +24,8 @@ public class TrainController {
 
     @GetMapping("/search")
     public List<Train> search(@RequestParam String source,
-                              @RequestParam String destination) {
+                              @RequestParam String destination,
+                              @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return trainService.search(source, destination);
     }
 
