@@ -1,17 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Search Trains</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Search Trains</title><link rel="stylesheet" href="css/style.css"></head><body>
 <header><h1>IRCTC Rail Connect</h1><nav><a href="index.html">Home</a><a href="my-bookings.html">My Bookings</a></nav></header>
-<div class="card">
-    <input id="source" placeholder="From">
-    <input id="destination" placeholder="To">
-    <button onclick="searchTrains()">Search</button>
-</div>
-<div id="results"></div>
-<script src="js/search.js"></script>
-</body>
-</html>
+<main class="page"><div class="card"><h2>Book Train Ticket</h2><select id="source"><option value="">From Station</option></select><select id="destination"><option value="">To Station</option></select><input id="journeyDate" type="date"><button onclick="searchTrains()">Search Trains</button></div><div id="results"></div></main><script src="js/search.js"></script></body></html>
