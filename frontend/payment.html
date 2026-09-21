@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header><h1>Dummy Payment</h1></header>
+<div class="card">
+    <input id="bookingId" type="number" placeholder="Booking ID">
+    <input id="amount" type="number" placeholder="Amount">
+    <select id="paymentMethod">
+        <option value="UPI">UPI</option>
+        <option value="CARD">Card</option>
+        <option value="NET_BANKING">Net Banking</option>
+    </select>
+    <button onclick="pay()">Pay Now</button>
+    <p id="message"></p>
+</div>
+<script src="js/payment.js"></script>
+</body>
+</html>
