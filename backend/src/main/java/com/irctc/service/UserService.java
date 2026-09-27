@@ -10,8 +10,9 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public User register(User user) {
@@ -24,7 +25,8 @@ public class UserService {
     }
 
     public User login(String email, String password) {
-        return userRepository.findByEmail(email)\n                .filter(u -> passwordEncoder.matches(password, u.getPassword()))
+        return userRepository.findByEmail(email)
+                .filter(u -> passwordEncoder.matches(password, u.getPassword()))
                 .orElseThrow(() -> new RuntimeException("Invalid email or password"));
     }
 }
