@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Passenger Details</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<header><h1>Passenger Details</h1><nav><a href="/search">Back to Search</a></nav></header>
+<main class="page">
+    <div class="card">
+        <h2>Select Class</h2>
+        <select id="classType">
+            <option value="SL">Sleeper - ₹500</option>
+            <option value="3A">AC 3 Tier - ₹1200</option>
+            <option value="2A">AC 2 Tier - ₹1800</option>
+            <option value="1A">First AC - ₹2500</option>
+        </select>
+        <h3>Passengers</h3>
+        <div id="passengers"></div>
+        <button onclick="addPassenger()">+ Add Passenger</button>
+        <button onclick="createBooking()">Continue to Payment</button>
+        <p id="message"></p>
+    </div>
+</main>
+<script src="/js/booking.js"></script>
+</body>
+</html>
