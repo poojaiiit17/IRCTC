@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<header><h1>Secure Payment</h1></header>
+<main class="page">
+    <div class="card">
+        <h2>Review & Pay</h2>
+        <p>PNR: <b id="pnr"></b></p>
+        <p>Total Fare: ₹<b id="amount"></b></p>
+        <select id="paymentMethod">
+            <option>UPI</option>
+            <option>CARD</option>
+            <option>NET_BANKING</option>
+        </select>
+        <button onclick="pay()">Pay Now</button>
+        <p id="message"></p>
+    </div>
+</main>
+<script src="/js/payment.js"></script>
+</body>
+</html>
